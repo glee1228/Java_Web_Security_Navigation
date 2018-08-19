@@ -520,28 +520,32 @@ $.ajax({
    var tFare = " 총 요금 : "+$intRate[0].getElementsByTagName("tmap:totalFare")[0].childNodes[0].nodeValue+"원,";   
    var taxiFare = " 예상 택시 요금 : "+$intRate[0].getElementsByTagName("tmap:taxiFare")[0].childNodes[0].nodeValue+"원";   
    var roadName='';
+   var roadName2='';
+   var roadNum=0;
    //list 선언문
    var List = [];
-	var roadNameList="";
-   //i의 갯수를 1000으로하고 값이 null이 나오면 종료되게 한다. 
-   for (let a=0 ; a <1000 ;a++ ){
-       roadName =$intRate2[a].getElementsByTagName("name")[0].childNodes[0].nodeValue+",";
-         document.write(roadName);
+   var List2 = [];
 
-      if(roadName==null){
+   //i의 갯수를 1000으로하고 값이 null이 나오면 종료되게 한다. 
+   for (let a=1 ; a <1000 ;a++ ){
+         //document.write(roadName);
+      if(roadName=='목적지'){
          break;
       }
+       roadName =$intRate2[a].getElementsByTagName("name")[0].childNodes[0].nodeValue;
       //값 넣기
       List.push(roadName);
-      
    }
       //값 찾기 
-      List.forEach(function(item){
-         console.log(item);
-         document.write(item);
-      })
+   for(var a in List) {
+         if(List[a].indexOf("로") > -1)
+               List2.push(List[a]);   
+   }   
       
-      
+   for(var a in List2) {
+      roadNum++;
+      document.write(roadNum+List2[a]+" ");
+   }   
    
    $("#result").text(tDistance+tTime+tFare+taxiFare+", "+search+ "번 경로 입니다.");
       

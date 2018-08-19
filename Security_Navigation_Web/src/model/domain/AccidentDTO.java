@@ -15,6 +15,17 @@ public class AccidentDTO {
 	
 	public AccidentDTO() {}
 	
+	public AccidentDTO(float riskRatio, float riskGrade, float accidentNum, float deadNum, float criticalNum, float stableNum, float claimantNum) {
+		super();
+		RiskRatio = riskRatio;
+		RiskGrade = riskGrade;
+		AccidentNum = accidentNum;
+		DeadNum = deadNum;
+		CriticalNum = criticalNum;
+		StableNum = stableNum;
+		ClaimantNum = claimantNum;
+	}
+	
 	public AccidentDTO(String name, float riskRatio, float riskGrade, String gu, float length, float lane,
 			float accidentNum, float deadNum, float criticalNum, float stableNum, float claimantNum) {
 		super();
