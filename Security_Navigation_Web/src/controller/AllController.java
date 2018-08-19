@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.AccidentDAO;
 import model.CustomerDAO;
 import model.PlaceDAO;
+import model.domain.AccidentDTO;
 import model.domain.CustomerDTO;
 import model.domain.PlaceDTO;
 
@@ -38,17 +40,14 @@ public class AllController extends HttpServlet {
 		}
 	}
 
-	private void search(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
+	private void avgRoute(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession(false);
-		session.setAttribute("type", request.getParameter("type"));
-		session.setAttribute("distance", request.getParameter("distance"));
-		System.out.println(request.getParameter("lat")+request.getParameter("lng")+request.getParameter("type")+request.getParameter("distance"));
-		System.out.println(session.getAttribute("type"));
-		String type = (String) session.getAttribute("type");
+		String namestring = request.getParameter("namestring");
+		System.out.println(namestring);
+		
 		try {
 			
-			ArrayList<PlaceDTO> typesearch = PlaceDAO.typeSearch(type);
+			ArrayList<AccidentDTO> namelist = AccidentDAO.avgRoute(namelist);
 			System.out.println(typesearch.size());
 			if (typesearch.size() == 0) {
 				request.setAttribute("msg", "No Result");
