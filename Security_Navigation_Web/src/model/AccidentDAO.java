@@ -21,7 +21,7 @@ public class AccidentDAO {
 				"round(avg(CriticalNum),2) as CriticalNum,\r\n" + 
 				"round(avg(StableNum),2) as StableNum\r\n" + 
 				"round(avg(ClaimantNum),2) as ClaimantNum from accident  where name=?";
-		String where= "or name=?";
+		String where= " or name=?";
 		String resultsql=sql;
 		for(int i=1; i<NameList.size(); i++) {
 			resultsql+=where;
