@@ -12,7 +12,7 @@ import util.DButil;
 
 public class AccidentDAO {
 
-	public static AccidentDTO avgRoute(ArrayList NameList) throws SQLException {
+	public static AccidentDTO avgRoute(String[] NameList) throws SQLException {
 		Connection con =null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -21,17 +21,17 @@ public class AccidentDAO {
 				"round(avg(CriticalNum),2) as CriticalNum,\r\n" + 
 				"round(avg(StableNum),2) as StableNum\r\n" + 
 				"round(avg(ClaimantNum),2) as ClaimantNum from accident  where name=?";
-		String where= "or name=?";
+		String where= " or name=?";
 		String resultsql=sql;
-		for(int i=1; i<NameList.size(); i++) {
+		for(int i=1; i<NameList.length; i++) {
 			resultsql+=where;
 		}
 		AccidentDTO data = null ;
 		try {
 			con = DButil.getConnection();
 			pstmt=con.prepareStatement(resultsql);
-			for(int i=0;i<=NameList.size();i++) {
-				pstmt.setString(i+1,(String) NameList.get(i));
+			for(int i=0;i<=NameList.length;i++) {
+				pstmt.setString(i+1,(String) NameList[i]);
 			}
 			rs =pstmt.executeQuery();
 			while(rs.next()) {
