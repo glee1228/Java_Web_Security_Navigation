@@ -33,8 +33,6 @@ public class AllController extends HttpServlet {
 			logout(request,response);
 		}else if(command.equals("all")){
 			all(request,response);
-		}else if(command.equals("search")){
-			search(request,response);
 		}else {
 			response.sendRedirect("login.html");
 		}
@@ -44,17 +42,18 @@ public class AllController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String namestring = request.getParameter("namestring");
 		System.out.println(namestring);
-		
+		String[] namelist = namestring.split(",");
 		try {
 			
-			ArrayList<AccidentDTO> namelist = AccidentDAO.avgRoute(namelist);
-			System.out.println(typesearch.size());
-			if (typesearch.size() == 0) {
+			AccidentDTO avglist = AccidentDAO.avgRoute(namelist);
+			System.out.println(avglist.toString());
+			
+			if (avglist == null) {
 				request.setAttribute("msg", "No Result");
 				request.getRequestDispatcher("msgView.jsp").forward(request, response);
 			} else {
-				session.setAttribute("typesearch", typesearch);
-				response.sendRedirect("loginSucc.jsp");
+				request.setAttribute("avglist", avglist);
+				request.getRequestDispatcher("ResultView.jsp").forward(request, response);;
 			}
 
 		} catch (SQLException e) {
@@ -102,7 +101,7 @@ public class AllController extends HttpServlet {
 			}
 		} else {
 			System.out.println("Error");
-			response.sendRedirect("index.html");
+			response.sendRedirect("index2.html");
 		}		
 	}
 	// 濡쒓렇�씤 泥섎━ 硫붿냼�뱶
@@ -121,8 +120,7 @@ public class AllController extends HttpServlet {
 					session.setAttribute("name", name);
 					session.setAttribute("type", type);
 					response.sendRedirect("loginSucc.jsp");
-				} else { // 鍮꾪쉶�썝�씪 寃쎌슦
-					// �슂泥� 媛앹껜�뿉 "�떦�떊�� �쉶�썝�씠 �븘�땲�떗�땲�떎"
+				} else { 
 					request.setAttribute("msg", "Error");
 					request.getRequestDispatcher("msgView.jsp").forward(request, response);
 				}
