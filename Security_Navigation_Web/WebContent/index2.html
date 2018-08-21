@@ -229,7 +229,7 @@ label {
 }
 </style>
 <body class="w3-light-grey">
-
+ 
 <!-- Navigation Bar -->
 
 <div class="w3-bar w3-white w3-large">
@@ -823,12 +823,66 @@ $.ajax({
    var tFare = " 총 요금 : "+$intRate[0].getElementsByTagName("tmap:totalFare")[0].childNodes[0].nodeValue+"원,";   
    var taxiFare = " 예상 택시 요금 : "+$intRate[0].getElementsByTagName("tmap:taxiFare")[0].childNodes[0].nodeValue+"원";   
    
-   
+   //콘솔을 선언
+   var console = window.console || {log:function(){}};
+
    var roadName='';
    var roadName2='';
    //list 선언문
    var List = [];
+   
+   //로와 거리로 끝나는 정규식 생성 - 보유 데이터의 name속성은 문자열길이가 3부터 7까지 존재.모두 -로 로 끝난다.
+   var ro3 = /^[가-힣][가-힣][로]$/;
+   var ro4 = /^[가-힣][가-힣][가-힣][로]$/;
+   var ro5 = /^[가-힣][가-힣][가-힣][가-힣][로]$/;
+   var ro6 = /^[가-힣][가-힣][가-힣][가-힣][가-힣][로]$/;
+   var ro7 = /^[가-힣][가-힣][가-힣][가-힣][가-힣][가-힣][로]$/;
+   
+   //로 로 끝나는 단어 추출함수
+   function searchRo(roadName){
+	   if(roadName=="")
+		   return "";
+	   if(ro3.test(roadName)){
+		   return roadName.match(ro3);
+	   }else if(ro4.test(roadName)){
+		   return roadName.match(ro4);
+	   }else if(ro5.test(roadName)){
+		   return roadName.match(ro5);
+	   }else if(ro6.test(roadName)){
+		   return roadName.match(ro6);
+	   }else if(ro7.test(roadName)){
+		   return roadName.match(ro7);
+	   }else
+		   return "";
+	   }
+   
+   //중복값 제거
+   function uniqArr(arr) {
+       var result = [];
+       for (var i = 0; i < arr.length; i++) {
+           if (result.length == 0) {
+        	   result.push(arr[i]);
+           } else {
+               var flg = true;
+               for (var j = 0; j < result.length; j++) {
+                   if (String(result[j]) == String(arr[i])) {
+                	   //console.log("걸러짐");
+                       flg = false;
+                       break;
+                   }
+               }
+               if (flg) {
+            	   
+            	   result.push(String(arr[i]));
+               }
+           }
+       }
+       return result;
+   }
+   
+  
 
+   var roName;
    //i의 갯수를 1000으로하고 값이 null이 나오면 종료되게 한다. 
    for (let a=1 ; a <1000 ;a++ ){
          //document.write(roadName);
@@ -837,17 +891,27 @@ $.ajax({
          break;
       }
        roadName =$intRate2[a].getElementsByTagName("name")[0].childNodes[0].nodeValue;
-
-      //값 넣기
-      List.push(roadName);
-      
-   }
-      //값 찾기 
-   
-   
-   for(var a in List) {
-       document.write(List[a]+" ");
+      //공백제거
+      roadName=roadName.replace(/(\s*)/g,"");
+      //console.log(roadName);
+      //-로 로 끝나는 문자열 반환
+      roName = searchRo(roadName);
+      //console.log(roName);
+       //값 넣기
+       if(roName!=""){
+      	List.push(roName);
+       }
        
+   }
+   
+ 	//중복값 제거
+   var uniqList = uniqArr(List);
+ 	//alert(uniqList);
+ 	
+ 	//값 찾기 
+   for(var a in uniqList) {
+       console.log(uniqList[a]+" ");
+      
    }   
    
    
@@ -874,6 +938,7 @@ $.ajax({
                  default:
                     style.strokeColor = "#ff0000";//stroke에 적용될 16진수 color
                     style.strokeOpacity = "1";//stroke의 투명도(0~1)
+                    
                     style.strokeWidth = "5";//stroke의 넓이(pixel 단위)
                  };
               e.feature.style = style;
@@ -1029,11 +1094,7 @@ error:function(request,status,error){
 </div>
 
 
-<!-- copyright -->
-<div class="w3-container w3-light-grey">
-			<h3>Railroad To Forest.</h3>
-			<p>Phone : 010-3967-3325, 010-9003-4096 Copyright(c) 2018   Email : glee1228@naver.com    www.RailroadtoForest.com Allright Reserved.</p>
-</div>
+
 
 
 <!-- Footer -->
@@ -1081,7 +1142,7 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
   <input type="hidden"name="command" value="login">
     <div class="imgcontainer" >
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <h2>SOLIDIUM<br> :search the safety route </h2>
+      <h2>SOLIDIUM<br>: search the safety route</h2>
     </div>
 
     <div class="container">
@@ -1093,7 +1154,7 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
       
     </div>
 
-    <div class="container" style="background-color:#f1f1f1">
+    <div class="container w3-center" style="background-color:#f1f1f1">
       <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
     	<button type="submit" class="loginbtn">Login</button>
     </div>
@@ -1120,7 +1181,7 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
       <label for="name"><b>Name</b></label><br>
       <input type="text" placeholder="Enter Name" name="name" required><br>
       
-      <div class="clearfix">
+      <div class="clearfix w3-center">
         <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
         <button type="submit" class="w3-bar-item w3-button"><i class="fa fa-user-plus"></i>Sign Up</button>
       </div>
@@ -1163,8 +1224,8 @@ window.onclick = function(event) {
 
 <!-- copyright -->
 <div class="w3-container w3-light-grey">
-			<h3>Railroad To Forest.</h3>
-			<p>Phone : 010-3967-3325, 010-9003-4096 Copyright(c) 2018   Email : glee1228@naver.com    www.RailroadtoForest.com Allright Reserved.</p>
+			<h3>SOLIDIUM.</h3>
+			<p>Phone : 010-3967-3325, 010-9003-4096 Copyright(c) 2018   Email : glee1228@naver.com    www.solidium.com Allright Reserved.</p>
 </div>
 </body>
 </html>
