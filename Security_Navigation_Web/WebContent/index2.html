@@ -837,9 +837,11 @@ $.ajax({
    var ro5 = /^[가-힣][가-힣][가-힣][가-힣][로]$/;
    var ro6 = /^[가-힣][가-힣][가-힣][가-힣][가-힣][로]$/;
    var ro7 = /^[가-힣][가-힣][가-힣][가-힣][가-힣][가-힣][로]$/;
+   
+   //로 로 끝나는 단어 추출함수
    function searchRo(roadName){
-	   if(roadName==null)
-		   return null;
+	   if(roadName=="")
+		   return "";
 	   if(ro3.test(roadName)){
 		   return roadName.match(ro3);
 	   }else if(ro4.test(roadName)){
@@ -851,9 +853,35 @@ $.ajax({
 	   }else if(ro7.test(roadName)){
 		   return roadName.match(ro7);
 	   }else
-		   return null;
+		   return "";
 	   }
    
+   //중복값 제거
+   function uniqArr(arr) {
+       var result = [];
+       for (var i = 0; i < arr.length; i++) {
+           if (result.length == 0) {
+        	   result.push(arr[i]);
+           } else {
+               var flg = true;
+               for (var j = 0; j < result.length; j++) {
+                   if (String(result[j]) == String(arr[i])) {
+                	   //console.log("걸러짐");
+                       flg = false;
+                       break;
+                   }
+               }
+               if (flg) {
+            	   
+            	   result.push(String(arr[i]));
+               }
+           }
+       }
+       return result;
+   }
+   
+  
+
    var roName;
    //i의 갯수를 1000으로하고 값이 null이 나오면 종료되게 한다. 
    for (let a=1 ; a <1000 ;a++ ){
@@ -865,28 +893,25 @@ $.ajax({
        roadName =$intRate2[a].getElementsByTagName("name")[0].childNodes[0].nodeValue;
       //공백제거
       roadName=roadName.replace(/(\s*)/g,"");
-      
+      //console.log(roadName);
       //-로 로 끝나는 문자열 반환
       roName = searchRo(roadName);
-            
+      //console.log(roName);
        //값 넣기
-       if(roName!=null){
+       if(roName!=""){
       	List.push(roName);
        }
        
    }
    
  	//중복값 제거
-   var uniqList = List.reduce(function(a,b){
-	   if(a.indexOf(b)<0) a.push(b);
-	   return a;
-	   },[]);
-   
- 
-      //값 찾기 
+   var uniqList = uniqArr(List);
+ 	//alert(uniqList);
+ 	
+ 	//값 찾기 
    for(var a in uniqList) {
        console.log(uniqList[a]+" ");
-       
+      
    }   
    
    
@@ -913,6 +938,7 @@ $.ajax({
                  default:
                     style.strokeColor = "#ff0000";//stroke에 적용될 16진수 color
                     style.strokeOpacity = "1";//stroke의 투명도(0~1)
+                    
                     style.strokeWidth = "5";//stroke의 넓이(pixel 단위)
                  };
               e.feature.style = style;
