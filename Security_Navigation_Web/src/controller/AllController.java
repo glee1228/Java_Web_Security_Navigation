@@ -33,6 +33,8 @@ public class AllController extends HttpServlet {
 			logout(request,response);
 		}else if(command.equals("all")){
 			all(request,response);
+		}else if(command.equals("avgRoute")){
+			avgRoute(request,response);
 		}else {
 			response.sendRedirect("login.html");
 		}
@@ -41,8 +43,11 @@ public class AllController extends HttpServlet {
 	private void avgRoute(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		String namestring = request.getParameter("namestring");
-		System.out.println(namestring);
-		String[] namelist = namestring.split(",");
+		//System.out.println(namestring);
+		String[] namelist = namestring.split("q");
+		for(int i=0;i<namelist.length;i++) {
+			System.out.println(namelist[i]);
+		}
 		try {
 			
 			AccidentDTO avglist = AccidentDAO.avgRoute(namelist);
@@ -52,8 +57,8 @@ public class AllController extends HttpServlet {
 				request.setAttribute("msg", "No Result");
 				request.getRequestDispatcher("msgView.jsp").forward(request, response);
 			} else {
-				request.setAttribute("avglist", avglist);
-				request.getRequestDispatcher("ResultView.jsp").forward(request, response);;
+				request.setAttribute("msg", "Success Result");
+				request.getRequestDispatcher("msgView.jsp").forward(request, response);;
 			}
 
 		} catch (SQLException e) {

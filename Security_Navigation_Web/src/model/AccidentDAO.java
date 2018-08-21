@@ -19,18 +19,19 @@ public class AccidentDAO {
 		String sql = "select round(avg(riskgrade),2) as Riskgrade,round(avg(riskratio),2) as Riskratio,\r\n" + 
 				"round(avg(AccidentNum),2) as AccidentNum ,round(avg(DeadNum),2) as DeadNum,\r\n" + 
 				"round(avg(CriticalNum),2) as CriticalNum,\r\n" + 
-				"round(avg(StableNum),2) as StableNum\r\n" + 
+				"round(avg(StableNum),2) as StableNum,\r\n" + 
 				"round(avg(ClaimantNum),2) as ClaimantNum from accident  where name=?";
 		String where= " or name=?";
 		String resultsql=sql;
 		for(int i=1; i<NameList.length; i++) {
 			resultsql+=where;
 		}
+		System.out.println(resultsql);
 		AccidentDTO data = null ;
 		try {
 			con = DButil.getConnection();
 			pstmt=con.prepareStatement(resultsql);
-			for(int i=0;i<=NameList.length;i++) {
+			for(int i=0;i<NameList.length;i++) {
 				pstmt.setString(i+1,(String) NameList[i]);
 			}
 			rs =pstmt.executeQuery();
