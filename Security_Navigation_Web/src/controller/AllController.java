@@ -43,6 +43,13 @@ public class AllController extends HttpServlet {
 	private void avgRoute(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		String namestring = request.getParameter("namestring");
+		String startlat = request.getParameter("startlat");
+		String startlng = request.getParameter("startlng");
+		String endlat = request.getParameter("endlat");
+		String endlng = request.getParameter("endlng");
+		String start = request.getParameter("start");
+		String end = request.getParameter("end");
+		String searchoption = request.getParameter("searchoption");
 		//System.out.println(namestring);
 		String[] namelist = namestring.split("q");
 		for(int i=0;i<namelist.length;i++) {
@@ -58,7 +65,21 @@ public class AllController extends HttpServlet {
 				request.getRequestDispatcher("msgView.jsp").forward(request, response);
 			} else {
 				request.setAttribute("msg", "Success Result");
-				request.getRequestDispatcher("msgView.jsp").forward(request, response);;
+				request.setAttribute("RiskRatio",String.valueOf(avglist.getRiskRatio()));
+				request.setAttribute("RiskGrade",String.valueOf(avglist.getRiskGrade()));
+				request.setAttribute("AccidentNum",String.valueOf(avglist.getAccidentNum()));
+				request.setAttribute("DeadNum",String.valueOf(avglist.getDeadNum()));
+				request.setAttribute("CriticalNum",String.valueOf(avglist.getCriticalNum()));
+				request.setAttribute("StableNum",String.valueOf(avglist.getStableNum()));
+				request.setAttribute("ClaimantNum", String.valueOf(avglist.getClaimantNum()));
+				request.setAttribute("Start", start);
+				request.setAttribute("End", end);
+				request.setAttribute("StartLat",startlat);
+				request.setAttribute("StartLng", startlng);
+				request.setAttribute("EndLat",endlat);
+				request.setAttribute("EndLng",endlng);
+				request.setAttribute("SearchOption", searchoption);
+				request.getRequestDispatcher("main.jsp").forward(request, response);;
 			}
 
 		} catch (SQLException e) {

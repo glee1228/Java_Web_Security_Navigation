@@ -9,12 +9,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<title>W3.CSS Template</title>
+<title>SOLIDIUM : search the safety route</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/gauge.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <style>
+
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}    
+#gaugediv {
+  width: 100%;
+  height: 500px;
+} 
 /* Full-width input fields */
 input[type=text], input[type=password] {
     width: 80%;
@@ -25,18 +41,11 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
-/* Set a style for all buttons */
 button {
-    background-color: #616161;
-    color: white;
+  
     padding: 14px 20px;
     margin: 8px 0;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: 0.8;
+    width: auto;
 }
 
 /* Extra styles for the cancel button */
@@ -153,13 +162,13 @@ span.psw {
     cursor: pointer;
     padding: 14px 16px;
     transition: 0.3s;
-    font-size: 22px;
+    font-size: 18px;
     font-color: #FFFFFF;
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-    background-color: #ddd;
+    background-color: #777;
 }
 
 /* Create an active/current tablink class */
@@ -254,7 +263,7 @@ label {
 <!-- Header -->
 <header class="w3-display-container w3-content" style="max-width:1500px;">
   
-  <img class="w3-image" src="img/main1.jpg" alt="The main" style="min-width:1000px" width="1500" height="600">
+  <img class="w3-image" src="img/main1.jpg" alt="The main" style="min-width:1000px" width="1500" height="350">
   
   <div class="w3-display-left w3-padding w3-col l6 m8">
     <!-- <div class="w3-container w3-black">
@@ -263,31 +272,7 @@ label {
  -->    <p>
  	<img src="img/SOLIDIUM4.png" align="center" class="w3-image w3-center" style="min-width:500px" width="680" height="325">
       </p>
-      <!-- <form action="/action_page.php" target="_blank"> -->
-       <!--  <div class="w3-row-padding" style="margin:0 -16px;"> -->
-        <!--   <div class="w3-half w3-margin-bottom">
-            <label><i class="fa fa-calendar-o"></i> 출발</label>
-            <input class="w3-input w3-border" type="text" placeholder="출발지" name="CheckIn" required>
-          </div>
-          <div class="w3-half">
-            <label><i class="fa fa-calendar-o"></i> 도착</label>
-            <input class="w3-input w3-border" type="text" placeholder="도착지" name="CheckOut" required>
-          </div>
-        </div>
-        <div class="w3-row-padding" style="margin:8px -16px;">
-          <div class="w3-half w3-margin-bottom">
-            <label><i class="fa fa-male"></i> Adults</label>
-            <input class="w3-input w3-border" type="number" value="1" name="Adults" min="1" max="6">
-          </div>
-          <div class="w3-half">
-            <label><i class="fa fa-child"></i> Kids</label>
-          <input class="w3-input w3-border" type="number" value="0" name="Kids" min="0" max="6">
-          </div>
-        </div>
-        <button class="w3-button w3-dark-grey" type="submit"><i class="fa fa-search w3-margin-right"></i> Search availability</button>
-      </form>
-    </div>
-  </div> -->
+     
 </header>
 
 <!-- Page content -->
@@ -299,43 +284,74 @@ label {
   </div>
   
   <div class="w3-row-padding">
-    <div class="w3-col m3">
-      <label><i class="fa fa-cal"></i> 출발</label>
-      <input class="w3-input w3-border" type="text" id="one" placeholder="출발지">
-    	
-    </div>
+			<div class="w3-col m3">
+				<label><i class="fa fa-cal"></i> 출발</label>
+				<c:if test="${empty requestScope.Start }">
+					<input class="w3-input w3-border" type="text" id="one"
+						placeholder="출발지">
+				</c:if>
+				<c:if test="${not empty requestScope.Start }">
+					<input class="w3-input w3-border" type="text" id="one"
+						value="${requestScope.Start }">
+				</c:if>
+			</div>
 			<div class="w3-col m1 ">
-				<button onclick="fun()">출발지</button>
+				<button class="btn btn-dark btn-lg" onclick="fun()">출발지</button>
 				<br>
 			</div>
 			<div class="w3-col m3">
-				<label><i class="fa fa-calendar-o"></i> 도착</label> <input
-					class="w3-input w3-border" type="text" id="two" placeholder="도착지">
-
+				<label><i class="fa fa-calendar-o"></i> 도착</label>
+				<c:if test="${empty requestScope.End }">
+					<input class="w3-input w3-border" type="text" id="two"
+						placeholder="도착지">
+				</c:if>
+				<c:if test="${not empty requestScope.End }">
+					<input class="w3-input w3-border" type="text" id="two"
+						value="${requestScope.End }">
+				</c:if>
 			</div>
 			<div class="w3-col m1 ">
-				<button onclick="fun1()">도착지</button>
+				<button class="btn btn-dark btn-lg" onclick="fun1()">도착지</button>
 				<br>
 			</div>
 			<form action="cont" method="GET">
 				<div class="w3-col m3">
-					<label><i class="fa fa-search"></i> Search</label>
-
 					<div class="w3-col m2">
 						<input type="hidden"  name="namestring" value="">
 						<input type="hidden" name="command" value="avgRoute">
+						<input type="hidden" name="startlat" value="">
+						<input type="hidden" name="startlng" value="">
+						<input type="hidden" name="endlat" value="">
+						<input type="hidden" name="endlng" value="">
+						<input type="hidden" name="start" value="">
+						<input type="hidden" name="end" value="">
+						<input type="hidden" name="searchoption" value="">
 					</div>
-					<button type="submit" class="w3-button w3-block w3-black">Search</button>
+					<button type="submit" class="btn btn-success btn-lg" ><i class="fa fa-search"></i> Search</button>
 				</div>
 			</form>
 
 		</div>
 
-<div id="map_div" class=" w3-padding w3-col" style="max-width:1200px" width="680" height="550"; >
+<div id="map_div" class=" w3-padding w3-col w3-container" style="max-width:1200px" width="680" height="550"; >
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey=f70ef694-e6b4-4f17-b5e6-7255a2b3ab9b"></script>
 
-
+ <script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
 <p id="result">   
 <script>   
    // 1. 지도 띄우기
@@ -371,6 +387,14 @@ var resultlat_s2  ;
 var resultlon_e2 ;
 var resultlat_e2 ;
 </script>
+<c:if test="${not empty requestScope.Start }">
+<script>
+resultlat_s2=${requestScope.StartLat };
+resultlon_s2=${requestScope.StartLng };
+resultlat_e2=${requestScope.EndLat };
+resultlon_e2=${requestScope.EndLng };
+</script>
+</c:if>
 <script>
 function fun() {
    
@@ -798,9 +822,7 @@ $.ajax({
    
 });
 }
-
 function div_sh(dd) {
-   
 var headers = {}; 
 headers["appKey"]="f70ef694-e6b4-4f17-b5e6-7255a2b3ab9b";//실행을 위한 키 입니다. 발급받으신 AppKey를 입력하세요.
 var search = dd;
@@ -935,8 +957,19 @@ $.ajax({
  		}
  	}
  	console.log(namestring);
+ 	
+ 	var start = document.getElementById("one").value;
+ 	var end = document.getElementById("two").value;
+ 	
  	//값 넣기
  	$('input[name=namestring]').attr('value',namestring);
+ 	$('input[name=startlng]').attr('value',resultlon_s2.toString());
+ 	$('input[name=startlat]').attr('value',resultlat_s2.toString());
+ 	$('input[name=endlng]').attr('value',resultlon_e2.toString());
+ 	$('input[name=endlat]').attr('value',resultlat_e2.toString());
+ 	$('input[name=start]').attr('value',start);
+ 	$('input[name=end]').attr('value',end);
+ 	$('input[name=searchoption]').attr('value',dd);
  	//값 찾기 
    for(var a in uniqList) {
        console.log(uniqList[a]+" ");
@@ -985,142 +1018,227 @@ error:function(request,status,error){
 } 
 
 </script>
+<c:if test="${not empty requestScope.SearchOption }">
+<script>
 
- <div class="button-holder">
-<input type="radio" checked="" class="regular-radio" name="ww" id="radio-1-set" value="0" onclick="div_sh(0);"><label for="radio-1-set">1번경로지도</label><br>
-<input type="radio" checked="" class="regular-radio" name="ww" id="radio-2-set" value="1" onclick="div_sh(1);"><label for="radio-2-set">2번경로지도</label><br>
-<input type="radio" checked="" class="regular-radio" name="ww" id="radio-3-set" value="2" onclick="div_sh(2);"><label for="radio-3-set">3번경로지도</label><br>
-<input type="radio" checked="" class="regular-radio" name="ww" id="radio-4-set" value="3" onclick="div_sh(3);"><label for="radio-4-set">4번경로지도</label><br>
-<input type="radio" checked="" class="regular-radio" name="ww" id="radio-5-set" value="4" onclick="div_sh(4);"><label for="radio-5-set">5번경로지도</label><br>
-<input type="radio" checked="" class="regular-radio" name="ww" id="radio-6-set" value="10" onclick="div_sh(10);"><label for="radio-6-set">6번경로지도</label><br>
-<input type="radio" checked="" class="regular-radio" name="ww" id="radio-7-set" value="12" onclick="div_sh(12);"><label for="radio-7-set">7번경로지도</label><br>
+(function(){
+	div_sh(${requestScope.SearchOption});
+	})()
 
+</script>
+</c:if>
+		<div class="w3-bar w3-large">
+      <a href="#rooms" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile"><h4>Search Option</h4></a>
+		</div>
+		<div class="w3-row-padding w3-col w3-margin-top">
+			<div class="w3-col m3">
+				<button type="radio" checked="" class="btn btn-outline-primary btn-lg" name="ww"
+					id="radio-1-set" value="0" onclick="div_sh(0);"><label
+					for="radio-1-set">교&nbsp;&nbsp;통&nbsp;&nbsp;최&nbsp;&nbsp;적&nbsp;+&nbsp;추&nbsp;&nbsp;천</label>
+			</div>
+			<div class="w3-col m3">
+				<button type="radio" checked="" class="btn btn-outline-primary btn-lg" name="ww"
+					id="radio-2-set" value="1" onclick="div_sh(1);"><label
+					for="radio-2-set">교통최적+무료우선</label>
+			</div>
+			<div class="w3-col m3">
+				<button type="radio" checked="" class="btn btn-outline-primary btn-lg" name="ww"
+					id="radio-3-set" value="2" onclick="div_sh(2);"><label
+					for="radio-3-set">교통최적+최소시간</label>
+			</div>
+			<div class="w3-col m3">
+				<button type="radio" checked="" class="btn btn-outline-primary btn-lg" name="ww"
+					id="radio-4-set" value="3" onclick="div_sh(3);"><label
+					for="radio-4-set">교 통 최 적 + 초 보</label>
+			</div>
+			</div>
+			<div class="w3-row-padding w3-col w3-margin-top">
+			<div class="w3-col m3">
+				<button type="radio" checked="" class="btn btn-outline-primary btn-lg" name="ww"
+					id="radio-5-set" value="4" onclick="div_sh(4);"><label
+					for="radio-5-set">교통최적+고속도로우선</label>
+			</div>
+			<div class="w3-col m3">
+				<button type="radio" checked="" class="btn btn-outline-primary btn-lg" name="ww"
+					id="radio-6-set" value="10" onclick="div_sh(10);"><label
+					for="radio-6-set">&nbsp;  최&nbsp;&nbsp;&nbsp;&nbsp;단 &nbsp;&nbsp;&nbsp;거 &nbsp;&nbsp;&nbsp;&nbsp;리  &nbsp;</label>
+			</div>
+			<div class="w3-col m3">
+				<button type="radio" checked="" class="btn btn-outline-primary btn-lg" name="ww"
+					id="radio-7-set" value="12" onclick="div_sh(12);"><label
+					for="radio-7-set">이 륜 차 도 로 우 선</label>
+			</div>
+			<br>
+		</div>
+<br>
+
+<br>
+<c:if test="${requestScope.RiskGrade==0.0 }">
+
+</c:if>
+
+<br>
+
+<c:if test="${requestScope.RiskGrade!=0.0 }">
+ 
+			<!-- Chart code -->
+<script>
+var chart = AmCharts.makeChart( "chartdiv", {
+  "type": "pie",
+  "theme": "light",
+  "dataProvider": [ {
+    "country": "사망자수",
+    "value": ${requestScope.DeadNum }
+  }, {
+    "country": "중상자수",
+    "value": ${requestScope.CriticalNum }
+  }, {
+    "country": "경상자수",
+    "value": ${requestScope.StableNum }
+  }, {
+    "country": "부상신고자수",
+    "value": ${requestScope.ClaimantNum }
+  } ],
+  "valueField": "value",
+  "titleField": "country",
+  "outlineAlpha": 0.4,
+  "depth3D": 15,
+  "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+  "angle": 10,
+  "export": {
+    "enabled": true
+  }
+} );
+</script>
+<script>
+var chart2 = AmCharts.makeChart("gaugediv", {
+  "theme": "none",
+  "type": "gauge",
+  "axes": [{
+    "topTextFontSize": 20,
+    "topTextYOffset": 70,
+    "axisColor": "#31d6ea",
+    "axisThickness": 1,
+    "endValue": 100,
+    "gridInside": true,
+    "inside": true,
+    "radius": "40%",
+    "valueInterval": 10,
+    "tickColor": "#67b7dc",
+    "startAngle": -90,
+    "endAngle": 90,
+    "unit": "%",
+    "bandOutlineAlpha": 0,
+    "bands": [{
+      "color": "#1ee83c",
+      "endValue": 100,
+      "innerRadius": "105%",
+      "radius": "170%",
+      "gradientRatio": [0.5, 0, -0.5],
+      "startValue": 0
+    }, {
+      "color": "#e22b2b",
+      "endValue": 0,
+      "innerRadius": "105%",
+      "radius": "170%",
+      "gradientRatio": [0.5, 0, -0.5],
+      "startValue": 0
+    }]
+  }],
+  "arrows": [{
+    "alpha": 1,
+    "innerRadius": "35%",
+    "nailRadius": 0,
+    "radius": "170%"
+  }]
+});
+
+setInterval(randomValue, 2000);
+
+// set random value
+function randomValue() {
+  var value = ${requestScope.RiskGrade};
+  value=value*25;
+  chart2.arrows[0].setValue(value);
+  chart2.axes[0].setTopText(value+" %");
+  // adjust darker band to new value
+  chart2.axes[0].bands[1].setEndValue(value);
+}
+</script>
+<!-- 
+<div class="w3-row-padding w3-padding-16">
+<div id="gaugediv" class="w3-third w3-margin-top" style="width:50%"></div>
+<div id="chartdiv" class="w3-third w3-margin-bottom" style="width:50%"></div>
 </div>
-  <div class="w3-row-padding w3-padding-16">
-    <div class="w3-third w3-margin-bottom">
-      <img src="/w3images/room_single.jpg" alt="Norway" style="width:100%">
-      <div class="w3-container w3-white">
-        <h3>Single Room</h3>
-        <h6 class="w3-opacity">From $99</h6>
-        <p>Single bed</p>
-        <p>15m<sup>2</sup></p>
-        <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i></p>
-        <button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button>
-      </div>
-    </div>
-    <div class="w3-third w3-margin-bottom">
-      <img src="/w3images/room_double.jpg" alt="Norway" style="width:100%">
-      <div class="w3-container w3-white">
-        <h3>Double Room</h3>
-        <h6 class="w3-opacity">From $149</h6>
-        <p>Queen-size bed</p>
-        <p>25m<sup>2</sup></p>
-        <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i> <i class="fa fa-tv"></i></p>
-        <button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button>
-      </div>
-    </div>
-    <div class="w3-third w3-margin-bottom">
-      <img src="/w3images/room_deluxe.jpg" alt="Norway" style="width:100%">
-      <div class="w3-container w3-white">
-        <h3>Deluxe Room</h3>
-        <h6 class="w3-opacity">From $199</h6>
-        <p>King-size bed</p>
-        <p>40m<sup>2</sup></p>
-        <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i> <i class="fa fa-tv"></i> <i class="fa fa-glass"></i> <i class="fa fa-cutlery"></i></p>
-        <button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button>
-      </div>
-    </div>
-  </div>
+-->
 
-  <div class="w3-row-padding" id="about">
-    <div class="w3-col l4 m7">
-      <h3>About</h3>
-      <h6>Our hotel is one of a kind. It is truely amazing. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</h6>
-    <p>We accept: <i class="fa fa-credit-card w3-large"></i> <i class="fa fa-cc-mastercard w3-large"></i> <i class="fa fa-cc-amex w3-large"></i> <i class="fa fa-cc-cc-visa w3-large"></i><i class="fa fa-cc-paypal w3-large"></i></p>
-    </div>
-    <div class="w3-col l8 m5">
-      <div id="googleMap" style="width:100%;height:400px;" class="w3-grayscale"></div>
-    </div>
-  </div>
-  
-  <div class="w3-row w3-large w3-center" style="margin:32px 0">
-    <div class="w3-third"><i class="fa fa-map-marker w3-text-red"></i> 423 Some adr, Chicago, US</div>
-    <div class="w3-third"><i class="fa fa-phone w3-text-red"></i> Phone: +00 151515</div>
-    <div class="w3-third"><i class="fa fa-envelope w3-text-red"></i> Email: mail@mail.com</div>
-  </div>
-
-  <div class="w3-panel w3-black w3-leftbar w3-padding-32">
-    <h6><i class="fa fa-info w3-deep-orange w3-padding w3-margin-right"></i> On demand, we can offer playstation, babycall, children care, dog equipment, etc.</h6>
-  </div>
-
-  <div class="w3-container">
-    <h3>Our Hotels</h3>
-    <h6>You can find our hotels anywhere in the world:</h6>
-  </div>
-  
-  <div class="w3-row-padding w3-padding-16 w3-text-white w3-large">
-    <div class="w3-half w3-margin-bottom">
-      <div class="w3-display-container">
-        <img src="/w3images/cinqueterre.jpg" alt="Cinque Terre" style="width:100%">
-        <span class="w3-display-bottomleft w3-padding">Cinque Terre</span>
+<div class="w3-container" style="padding: 64px 16px" id="about">
+      <div class="tab">
+      <style> button{font-family: "Raleway", sans-serif}</style>
+      
+         <button class="tablinks" style="color:black" onclick="openCity(event, 'RouteInfo')">
+            RouteInfo
+         </button>
+         <button class="tablinks" style="color:black" onclick="openCity(event, 'RiskPercent')">
+            RiskPercent
+         </button>
+         <button class="tablinks" style="color:black" onclick="openCity(event, 'AccidentInfo')">
+            AccidentInfo
+         </button>
+         
       </div>
-    </div>
-    <div class="w3-half">
-      <div class="w3-row-padding" style="margin:0 -16px">
-        <div class="w3-half w3-margin-bottom">
-          <div class="w3-display-container">
-            <img src="/w3images/newyork2.jpg" alt="New York" style="width:100%">
-            <span class="w3-display-bottomleft w3-padding">New York</span>
-          </div>
-        </div>
-        <div class="w3-half w3-margin-bottom">
-          <div class="w3-display-container">
-            <img src="/w3images/sanfran.jpg" alt="San Francisco" style="width:100%">
-            <span class="w3-display-bottomleft w3-padding">San Francisco</span>
-          </div>
-        </div>
       </div>
-      <div class="w3-row-padding" style="margin:0 -16px">
-        <div class="w3-half w3-margin-bottom">
-          <div class="w3-display-container">
-            <img src="/w3images/pisa.jpg" alt="Pisa" style="width:100%">
-            <span class="w3-display-bottomleft w3-padding">Pisa</span>
-          </div>
-        </div>
-        <div class="w3-half w3-margin-bottom">
-          <div class="w3-display-container">
-            <img src="/w3images/paris.jpg" alt="Paris" style="width:100%">
-            <span class="w3-display-bottomleft w3-padding">Paris</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+			<div class="w3-margin-left w3-center">
+				<div id="RouteInfo" class="tabcontent">
+					<p id="msg">${requestScope.msg }</p>
+					<p id="SearchOption">
+					<h4>경로 유형</h4>${requestScope.SearchOption }</p>
+					<p id="RiskRatio">
+					<h4>도로별 평균 위험도</h4>${requestScope.RiskRatio }</p>
+					<p id="RiskGrade">
+					<h4>도로별 평균 위험 등급</h4>${requestScope.RiskGrade }</p>
+					<p id="AccidentNum">
+					<h4>도로별 평균 사고건수</h4>${requestScope.AccidentNum }</p>
+					<p id="DeadNum">
+					<h4>도로별 평균 사망자 수</h4>${requestScope.DeadNum }</p>
+					<p id="CriticalNum">
+					<h4>도로별 평균 중상자 수</h4>${requestScope.CriticalNum }</p>
+					<p id="StableNum">
+					<h4>도로별 평균 경상자 수</h4>${requestScope.StableNum }</p>
+					<p id="ClaimantNum">
+					<h4>도로별 평균 부상신고자 수</h4>${requestScope.ClaimantNum }</p>
+					<p id="Start">
+					<h4>출발지</h4>${requestScope.Start }</p>
+					<p id="End">
+					<h4>목적지</h4>${requestScope.End }</p>
+					<p id="StartLat">
+					<h4>출발지 위도</h4>${requestScope.StartLat }</p>
+					<p id="StartLng">
+					<h4>출발지 경도</h4>${requestScope.StartLng }</p>
+					<p id="EndLat">
+					<h4>목적지 위도</h4>${requestScope.EndLat }</p>
+					<p id="EndLng">
+					<h4>목적지 경도</h4>${requestScope.EndLng }</p>
 
-  <div class="w3-container w3-padding-32 w3-black w3-opacity w3-card w3-hover-opacity-off" style="margin:32px 0;">
-    <h2>Get the best offers first!</h2>
-    <p>Join our newsletter.</p>
-    <label>E-mail</label>
-    <input class="w3-input w3-border" type="text" placeholder="Your Email address">
-    <button type="button" class="w3-button w3-black w3-margin-top">Subscribe</button>
-  </div>
+				</div>
 
-  <div class="w3-container" id="contact">
-    <h2>Contact</h2>
-    <p>If you have any questions, do not hesitate to ask them.</p>
-    <i class="fa fa-map-marker w3-text-red" style="width:30px"></i> Chicago, US<br>
-    <i class="fa fa-phone w3-text-red" style="width:30px"></i> Phone: +00 151515<br>
-    <i class="fa fa-envelope w3-text-red" style="width:30px"> </i> Email: mail@mail.com<br>
-    <form action="/action_page.php" target="_blank">
-      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name"></p>
-      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"></p>
-      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Message" required name="Message"></p>
-      <p><button class="w3-button w3-black w3-padding-large" type="submit">SEND MESSAGE</button></p>
-    </form>
-  </div>
+				<div id="RiskPercent" class="tabcontent">
+				<div class="w3-row-padding w3-padding-16">
+					<div id="gaugediv" class="w3-third w3-margin-top"style="width: 50%"></div>
+				</div>
+				</div>
 
-<!-- End page content -->
-</div>
+				<div id="AccidentInfo" class="tabcontent">
+					<div class="w3-row-padding w3-padding-16">
+						<div id="chartdiv" class="w3-third w3-margin-bottom"style="width: 50%"></div>
+					</div>
+				</div>
+
+
+			</div>
+</c:if>
+
+
 
 
 
@@ -1136,8 +1254,9 @@ error:function(request,status,error){
     <i class="fa fa-pinterest-p w3-hover-opacity"></i>
     <i class="fa fa-twitter w3-hover-opacity"></i>
     <i class="fa fa-linkedin w3-hover-opacity"></i>
-  </div>
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+  </div><!-- copyright -->
+			<h3>SOLIDIUM.</h3>
+			<p>Phone : 010-3967-3325, 010-9003-4096, 010-7202-8295 Copyright(c) 2018   Email : glee1228@naver.com   <a href="localhost:8088/Security_Navigation_Web/main.jsp" target="_blank" class="w3-hover-text-green"> www.solidium.com </a>Allright Reserved.</p>
 </footer>
 
 <!-- Add Google Maps -->
@@ -1251,10 +1370,6 @@ window.onclick = function(event) {
   </div>
 </div>
 
-<!-- copyright -->
-<div class="w3-container w3-light-grey">
-			<h3>SOLIDIUM.</h3>
-			<p>Phone : 010-3967-3325, 010-9003-4096 Copyright(c) 2018   Email : glee1228@naver.com    www.solidium.com Allright Reserved.</p>
-</div>
+
 </body>
 </html>
