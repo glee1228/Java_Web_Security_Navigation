@@ -50,6 +50,11 @@ public class AllController extends HttpServlet {
 		String start = request.getParameter("start");
 		String end = request.getParameter("end");
 		String searchoption = request.getParameter("searchoption");
+		String tdistance = request.getParameter("tdistance");
+		String ttime = request.getParameter("ttime");
+		String tfare = request.getParameter("tfare");
+		String taxifare  = request.getParameter("taxifare");
+		
 		//System.out.println(namestring);
 		String[] namelist = namestring.split("q");
 		for(int i=0;i<namelist.length;i++) {
@@ -79,6 +84,11 @@ public class AllController extends HttpServlet {
 				request.setAttribute("EndLat",endlat);
 				request.setAttribute("EndLng",endlng);
 				request.setAttribute("SearchOption", searchoption);
+			    request.setAttribute("TDistance",tdistance );
+		        request.setAttribute("TTime", ttime);
+		        request.setAttribute("TFare", tfare);
+		        request.setAttribute("TaxiFare", taxifare );
+
 				request.getRequestDispatcher("main.jsp").forward(request, response);;
 			}
 

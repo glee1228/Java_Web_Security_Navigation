@@ -326,6 +326,11 @@ label {
 						<input type="hidden" name="start" value="">
 						<input type="hidden" name="end" value="">
 						<input type="hidden" name="searchoption" value="">
+						<input type="hidden" name="tdistance" value="">
+                 		 <input type="hidden" name="ttime" value="">
+                 		 <input type="hidden" name="tfare" value="">
+                		  <input type="hidden" name="taxifare" value="">
+						
 					</div>
 					<button type="submit" class="btn btn-success btn-lg" ><i class="fa fa-search"></i> Search</button>
 				</div>
@@ -860,10 +865,10 @@ $.ajax({
    $intRate = $xml.find("Document");
    $intRate2 = $xml.find("Placemark");
    
-   var tDistance = "총 거리 : "+($intRate[0].getElementsByTagName("tmap:totalDistance")[0].childNodes[0].nodeValue/1000).toFixed(1)+"km,";
-   var tTime = " 총 시간 : "+($intRate[0].getElementsByTagName("tmap:totalTime")[0].childNodes[0].nodeValue/60).toFixed(0)+"분,";   
-   var tFare = " 총 요금 : "+$intRate[0].getElementsByTagName("tmap:totalFare")[0].childNodes[0].nodeValue+"원,";   
-   var taxiFare = " 예상 택시 요금 : "+$intRate[0].getElementsByTagName("tmap:taxiFare")[0].childNodes[0].nodeValue+"원";   
+   var tdistance = ($intRate[0].getElementsByTagName("tmap:totalDistance")[0].childNodes[0].nodeValue/1000).toFixed(1);
+   var ttime = ($intRate[0].getElementsByTagName("tmap:totalTime")[0].childNodes[0].nodeValue/60).toFixed(0);   
+   var tfare = $intRate[0].getElementsByTagName("tmap:totalFare")[0].childNodes[0].nodeValue;   
+   var taxifare = $intRate[0].getElementsByTagName("tmap:taxiFare")[0].childNodes[0].nodeValue;   
    
    //콘솔을 선언
    var console = window.console || {log:function(){}};
@@ -970,6 +975,10 @@ $.ajax({
  	$('input[name=start]').attr('value',start);
  	$('input[name=end]').attr('value',end);
  	$('input[name=searchoption]').attr('value',dd);
+ 	$('input[name=tdistance]').attr('value',tdistance );
+ 	$('input[name=ttime]').attr('value',ttime );
+ 	$('input[name=tfare]').attr('value',tfare );
+ 	$('input[name=taxifare]').attr('value',taxifare );
  	//값 찾기 
    for(var a in uniqList) {
        console.log(uniqList[a]+" ");
@@ -979,7 +988,7 @@ $.ajax({
    
    
    
-   $("#result").text(tDistance+tTime+tFare+taxiFare+", "+search );
+   $("#result").text("총 거리 : "+tdistance+"km 총 시간 : "+ttime+"분 통행 요금: "+tfare+"원 택시요금 : "+taxifare+"원, "+search );
       
    prtcl=new Tmap.Format.KML({extractStyles:true, extractAttributes:true}).read(prtcl);//데이터(prtcl)를 읽고, 벡터 도형(feature) 목록을 리턴합니다.
    
@@ -1192,33 +1201,60 @@ function randomValue() {
 				<div id="RouteInfo" class="tabcontent">
 					<p id="msg">${requestScope.msg }</p>
 					<p id="SearchOption">
+					
 					<h4>경로 유형</h4>${requestScope.SearchOption }</p>
 					<p id="RiskRatio">
+					
 					<h4>도로별 평균 위험도</h4>${requestScope.RiskRatio }</p>
 					<p id="RiskGrade">
+					
 					<h4>도로별 평균 위험 등급</h4>${requestScope.RiskGrade }</p>
 					<p id="AccidentNum">
+					
 					<h4>도로별 평균 사고건수</h4>${requestScope.AccidentNum }</p>
 					<p id="DeadNum">
+					
 					<h4>도로별 평균 사망자 수</h4>${requestScope.DeadNum }</p>
 					<p id="CriticalNum">
+					
 					<h4>도로별 평균 중상자 수</h4>${requestScope.CriticalNum }</p>
 					<p id="StableNum">
+					
 					<h4>도로별 평균 경상자 수</h4>${requestScope.StableNum }</p>
 					<p id="ClaimantNum">
+					
 					<h4>도로별 평균 부상신고자 수</h4>${requestScope.ClaimantNum }</p>
 					<p id="Start">
+					
 					<h4>출발지</h4>${requestScope.Start }</p>
 					<p id="End">
+					
 					<h4>목적지</h4>${requestScope.End }</p>
 					<p id="StartLat">
+					
 					<h4>출발지 위도</h4>${requestScope.StartLat }</p>
 					<p id="StartLng">
+					
 					<h4>출발지 경도</h4>${requestScope.StartLng }</p>
 					<p id="EndLat">
+					
 					<h4>목적지 위도</h4>${requestScope.EndLat }</p>
 					<p id="EndLng">
+					
 					<h4>목적지 경도</h4>${requestScope.EndLng }</p>
+					<p id="TDistance">
+					
+					<h4>총 거리</h4>${requestScope.TDistance  }</p>
+					<p id="TTime">
+					
+					<h4>총 시간</h4>${requestScope.TTime  }</p>
+					<p id="TFare">
+					
+					<h4>통행 비용</h4>${requestScope.TFare }</p>
+					<p id="TaxiFare">
+					
+					<h4>예상 택시 요금</h4>${requestScope.TaxiFare  }</p>
+
 
 				</div>
 
