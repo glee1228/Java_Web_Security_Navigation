@@ -140,7 +140,7 @@ public class AllController extends HttpServlet {
 			response.sendRedirect("index2.html");
 		}		
 	}
-	// 濡쒓렇�씤 泥섎━ 硫붿냼�뱶
+	//로그인
 	protected void login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -150,7 +150,7 @@ public class AllController extends HttpServlet {
 		if (id != null && pw != null) {
 			try {
 				String name = CustomerDAO.loginCheck(id, pw);
-				if (name != null) { // �쉶�썝�씪 寃쎌슦
+				if (name != null) { 
 					HttpSession session = request.getSession();
 					session.setAttribute("dataAll", PlaceDAO.typeSearchAll());
 					session.setAttribute("name", name);
@@ -164,13 +164,13 @@ public class AllController extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			response.sendRedirect("login.html");
+			response.sendRedirect("main.jsp");
 		}
 
 	}
 	
 
-	// 濡쒓렇�븘�썐 泥섎━ 硫붿냼�뱶
+	//로그아웃
 	protected void logout(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
