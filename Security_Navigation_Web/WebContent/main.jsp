@@ -21,6 +21,9 @@
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <style>
 
 #chartdiv {
@@ -28,6 +31,10 @@
   height: 500px;
 }    
 #gaugediv {
+  width: 100%;
+  height: 500px;
+} 
+#container {
   width: 100%;
   height: 500px;
 } 
@@ -242,7 +249,7 @@ label {
 
 <div class="w3-bar w3-white w3-large">
   <a href="#" class="w3-bar-item w3-button w3-black w3-mobile"><i class="fa fa-map w3-margin-right"></i>HOME</a>
-  <a href="#rooms" id="searchsection"class="w3-bar-item w3-button w3-mobile">SEARCH</a>
+  <a href="#rooms" id="searchsection" class="w3-bar-item w3-button w3-mobile">SEARCH</a>
        <a class ="w3-bar-item w3-button" onclick="document.getElementById('id02').style.display='block'" >SIGNUP</a>
       <a class ="w3-bar-item w3-button" onclick="document.getElementById('id01').style.display='block'" >LOGIN</a>
   <a href="#rooms" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">SEARCH NOW</a>
@@ -274,7 +281,8 @@ label {
     <p>We always search the safety route where you are.</p>
   </div>
   
-  <div class="w3-row-padding">
+  <!-- 고정시키는 부분 -->
+		<div class="w3-row-padding">
 			<div class="w3-col m3">
 				<label><i class="fa fa-cal"></i> 출발</label>
 				<c:if test="${empty requestScope.Start }">
@@ -301,35 +309,85 @@ label {
 						value="${requestScope.End }">
 				</c:if>
 			</div>
+
 			<div class="w3-col m1 ">
 				<button class="btn btn-dark btn-lg" onclick="fun1()">도착지</button>
 				<br>
 			</div>
 			<form action="cont" method="GET">
-				<div class="w3-col m3">
-					<div class="w3-col m2">
-						<input type="hidden"  name="namestring" value="">
-						<input type="hidden" name="command" value="avgRoute">
-						<input type="hidden" name="startlat" value="">
-						<input type="hidden" name="startlng" value="">
-						<input type="hidden" name="endlat" value="">
-						<input type="hidden" name="endlng" value="">
-						<input type="hidden" name="start" value="">
-						<input type="hidden" name="end" value="">
-						<input type="hidden" name="searchoption" value="">
-						<input type="hidden" name="tdistance" value="">
-                 		 <input type="hidden" name="ttime" value="">
-                 		 <input type="hidden" name="tfare" value="">
-                		  <input type="hidden" name="taxifare" value="">
-						
-					</div>
-					<button type="submit" class="btn btn-success btn-lg" ><i class="fa fa-search"></i> Search</button>
+				<div class="w3-col m1">
+					
+						<input type="hidden" name="namestring" value=""> <input
+							type="hidden" name="command" value="avgRoute"> <input
+							type="hidden" name="startlat" value=""> <input
+							type="hidden" name="startlng" value=""> <input
+							type="hidden" name="endlat" value=""> <input
+							type="hidden" name="endlng" value=""> <input
+							type="hidden" name="start" value=""> <input type="hidden"
+							name="end" value=""> <input type="hidden"
+							name="searchoption" value=""> <input type="hidden"
+							name="tdistance" value=""> <input type="hidden"
+							name="ttime" value=""> <input type="hidden" name="tfare"
+							value=""> <input type="hidden" name="taxifare" value="">
+
+
+
+					
+					<button type="submit" class="btn btn-success btn-lg">
+						<i class="fa fa-search"></i> Search
+					</button>
+
 				</div>
 			</form>
-
+			<form name="allAvgRoute" action="cont" method="GET">
+				<div class="w3-col m1">
+					<input type="hidden" name="command" value="allAvgRoute"> <input
+						type="hidden" name="totalnamestring" value=""><input
+							type="hidden" name="startlat" value=""> <input
+							type="hidden" name="startlng" value=""> <input
+							type="hidden" name="endlat" value=""> <input
+							type="hidden" name="endlng" value=""> <input
+							type="hidden" name="start" value=""> <input type="hidden"
+							name="end" value="">
+					<button class="btn btn-success btn-lg" onclick="totalsearch()">
+						<i class="fa fa-search"></i> TotoalSearch
+					</button>
+				</div>
+			</form>
 		</div>
 
-<div id="map_div" class=" w3-padding w3-col w3-container" style="max-width:1200px" width="680" height="550"; >
+
+
+		<script>
+		var totalnamestring ="";
+				function totalsearch() {
+						(function(){
+							div_sh2(0);
+							})(),
+						(function(){
+							div_sh2(1);
+							})(),
+						(function(){
+							div_sh2(2);
+							})(),
+						(function(){
+							div_sh2(3);
+							})(),
+						(function(){
+							div_sh2(4);
+							})(),
+						(function(){
+							div_sh2(10);
+						})(),  
+						(function(){
+							div_sh2(12);
+							})()
+							
+							document.getElementByName("allAvgRoute").submit();	
+				}
+				
+		</script>
+		<div id="map_div" class=" w3-padding w3-col w3-container" style="max-width:1200px" width="680" height="550"; >
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey=f70ef694-e6b4-4f17-b5e6-7255a2b3ab9b"></script>
 
@@ -402,7 +460,7 @@ function fun() {
    
    //입력한 문자열을 읽어온다.
    var start = document.getElementById("one").value
-	
+
 //2. API 사용요청
 $.ajax({
 method:"GET",
@@ -824,10 +882,231 @@ $.ajax({
    
 });
 }
+
+
+
 function div_sh(dd) {
+	var headers = {}; 
+	headers["appKey"]="f70ef694-e6b4-4f17-b5e6-7255a2b3ab9b";//실행을 위한 키 입니다. 발급받으신 AppKey를 입력하세요.
+	var search = dd;
+	alert(this.resultlat_s2+"//"+this.resultlon_s2+"//"+this.resultlat_e2+"//"+this.resultlon_e2);
+	$.ajax({
+	   
+	   method:"POST",
+	   headers : headers,
+	   url:"https://api2.sktelecom.com/tmap/routes?version=1&format=xml",//자동차 경로안내 api 요청 url입니다.
+	   async:false,
+	   data:{
+	      //출발지 위경도 좌표입니다.
+	      startX : resultlon_s2.toString(),
+	      startY : resultlat_s2.toString(),
+	      //목적지 위경도 좌표입니다.
+	      endX : resultlon_e2.toString(),
+	      endY : resultlat_e2.toString(),
+	      //출발지, 경유지, 목적지 좌표계 유형을 지정합니다.
+	      reqCoordType : "WGS84GEO",
+	      resCoordType : "EPSG3857",
+	      //각도입니다.
+	      angle : "172",
+	      //경로 탐색 옵션 입니다.
+	      searchOption : search
+	   },
+	   //데이터 로드가 성공적으로 완료되었을 때 발생하는 함수입니다.
+	   success:function(response){
+	      prtcl = response;
+	      
+	      // 결과 출력
+	      var innerHtml ="";
+	      var prtclString = new XMLSerializer().serializeToString(prtcl);//xml to String   
+	       xmlDoc = $.parseXML( prtclString ),
+	       $xml = $( xmlDoc ),
+	   $intRate = $xml.find("Document");
+	   $intRate2 = $xml.find("Placemark");
+	   
+	   var tdistance = ($intRate[0].getElementsByTagName("tmap:totalDistance")[0].childNodes[0].nodeValue/1000).toFixed(1);
+	   var ttime = ($intRate[0].getElementsByTagName("tmap:totalTime")[0].childNodes[0].nodeValue/60).toFixed(0);   
+	   var tfare = $intRate[0].getElementsByTagName("tmap:totalFare")[0].childNodes[0].nodeValue;   
+	   var taxifare = $intRate[0].getElementsByTagName("tmap:taxiFare")[0].childNodes[0].nodeValue;   
+	   
+	   //콘솔을 선언
+	   var console = window.console || {log:function(){}};
+
+	   var roadName='';
+	   var roadName2='';
+	   //list 선언문
+	   var List = [];
+	   
+	   //로와 거리로 끝나는 정규식 생성 - 보유 데이터의 name속성은 문자열길이가 3부터 7까지 존재.모두 -로 로 끝난다.
+	   var ro3 = /^[가-힣][가-힣][로]$/;
+	   var ro4 = /^[가-힣][가-힣][가-힣][로]$/;
+	   var ro5 = /^[가-힣][가-힣][가-힣][가-힣][로]$/;
+	   var ro6 = /^[가-힣][가-힣][가-힣][가-힣][가-힣][로]$/;
+	   var ro7 = /^[가-힣][가-힣][가-힣][가-힣][가-힣][가-힣][로]$/;
+	   
+	   //로 로 끝나는 단어 추출함수
+	   function searchRo(roadName){
+		   if(roadName=="")
+			   return "";
+		   if(ro3.test(roadName)){
+			   return roadName.match(ro3);
+		   }else if(ro4.test(roadName)){
+			   return roadName.match(ro4);
+		   }else if(ro5.test(roadName)){
+			   return roadName.match(ro5);
+		   }else if(ro6.test(roadName)){
+			   return roadName.match(ro6);
+		   }else if(ro7.test(roadName)){
+			   return roadName.match(ro7);
+		   }else
+			   return "";
+		   }
+	   
+	   //중복값 제거
+	   function uniqArr(arr) {
+	       var result = [];
+	       for (var i = 0; i < arr.length; i++) {
+	           if (result.length == 0) {
+	        	   result.push(arr[i]);
+	           } else {
+	               var flg = true;
+	               for (var j = 0; j < result.length; j++) {
+	                   if (String(result[j]) == String(arr[i])) {
+	                	   //console.log("걸러짐");
+	                       flg = false;
+	                       break;
+	                   }
+	               }
+	               if (flg) {
+	            	   
+	            	   result.push(String(arr[i]));
+	               }
+	           }
+	       }
+	       return result;
+	   }
+	   
+	  
+
+	   var roName;
+	   //i의 갯수를 1000으로하고 값이 null이 나오면 종료되게 한다. 
+	   for (let a=1 ; a <1000 ;a++ ){
+	         //document.write(roadName);
+
+	      if(roadName=='목적지'){
+	         break;
+	      }
+	       roadName =$intRate2[a].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+	      //공백제거
+	      roadName=roadName.replace(/(\s*)/g,"");
+	      //console.log(roadName);
+	      //-로 로 끝나는 문자열 반환
+	      roName = searchRo(roadName);
+	      //console.log(roName);
+	       //값 넣기
+	       if(roName!=""){
+	      	List.push(roName);
+	       }
+	       
+	   }
+	   
+	 	//중복값 제거
+	   var uniqList = uniqArr(List);
+	 	//alert(uniqList);
+	 	var namestring="";
+	 	for(var i=0;i<uniqList.length;i++){
+	 		namestring+=uniqList[i];
+	 		if(i<uniqList.length-1){
+	 			namestring+="q";
+	 		}
+	 	}
+	 	console.log(namestring);
+	 	
+	 	
+	 	//alert(namestring);
+
+	 	
+	 	
+	 	
+	 	var start = document.getElementById("one").value;
+	 	var end = document.getElementById("two").value;
+	 	
+	 	//값 넣기
+	 	$('input[name=namestring]').attr('value',namestring);
+	 	$('input[name=startlng]').attr('value',resultlon_s2.toString());
+	 	$('input[name=startlat]').attr('value',resultlat_s2.toString());
+	 	$('input[name=endlng]').attr('value',resultlon_e2.toString());
+	 	$('input[name=endlat]').attr('value',resultlat_e2.toString());
+	 	$('input[name=start]').attr('value',start);
+	 	$('input[name=end]').attr('value',end);
+	 	$('input[name=searchoption]').attr('value',dd);
+	 	$('input[name=tdistance]').attr('value',tdistance );
+	 	$('input[name=ttime]').attr('value',ttime );
+	 	$('input[name=tfare]').attr('value',tfare );
+	 	$('input[name=taxifare]').attr('value',taxifare );
+	 	//값 찾기 
+	   for(var a in uniqList) {
+	       console.log(uniqList[a]+" ");
+	      
+	   }   
+	   
+	   
+	   
+	   
+	   $("#result").text("총 거리 : "+tdistance+"km 총 시간 : "+ttime+"분 통행 요금: "+tfare+"원 택시요금 : "+taxifare+"원, "+search );
+	      
+	   prtcl=new Tmap.Format.KML({extractStyles:true, extractAttributes:true}).read(prtcl);//데이터(prtcl)를 읽고, 벡터 도형(feature) 목록을 리턴합니다.
+	   
+	   routeLayer.removeAllFeatures();//레이어의 모든 도형을 지웁니다.
+	   
+	   //표준 데이터 포맷인 KML을 Read/Write 하는 클래스 입니다.
+	   //벡터 도형(Feature)이 추가되기 직전에 이벤트가 발생합니다.
+	   routeLayer.events.register("beforefeatureadded", routeLayer, onBeforeFeatureAdded);
+	           function onBeforeFeatureAdded(e) {
+	                 var style = {};
+	                 switch (e.feature.attributes.styleUrl) {
+	                 case "#pointStyle":
+	                    style.externalGraphic = "http://topopen.tmap.co.kr/imgs/point.png"; //렌더링 포인트에 사용될 외부 이미지 파일의 url입니다.
+	                    style.graphicHeight = 16; //외부 이미지 파일의 크기 설정을 위한 픽셀 높이입니다.
+	                    style.graphicOpacity = 1; //외부 이미지 파일의 투명도 (0-1)입니다.
+	                    style.graphicWidth = 16; //외부 이미지 파일의 크기 설정을 위한 픽셀 폭입니다.
+	                 break;
+	                 default:
+	                    style.strokeColor = "#ff0000";//stroke에 적용될 16진수 color
+	                    style.strokeOpacity = "1";//stroke의 투명도(0~1)
+	                    
+	                    style.strokeWidth = "5";//stroke의 넓이(pixel 단위)
+	                 };
+	              e.feature.style = style;
+	           }
+	   
+	   routeLayer.addFeatures(prtcl); //레이어에 도형을 등록합니다.
+	   
+	   map.zoomToExtent(routeLayer.getDataExtent());//map의 zoom을 routeLayer의 영역에 맞게 변경합니다.   
+	},
+	//요청 실패시 콘솔창에서 에러 내용을 확인할 수 있습니다.
+	error:function(request,status,error){
+	   console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	}
+	});
+	} 
+
+
+
+
+
+
+
+
+function div_sh2(dd) {
 var headers = {}; 
 headers["appKey"]="f70ef694-e6b4-4f17-b5e6-7255a2b3ab9b";//실행을 위한 키 입니다. 발급받으신 AppKey를 입력하세요.
-var search = dd;
+var search =0;
+if(dd>12){
+	search = dd-13;
+}
+else {
+search = dd;
+}
 alert(this.resultlat_s2+"//"+this.resultlon_s2+"//"+this.resultlat_e2+"//"+this.resultlon_e2);
 $.ajax({
    
@@ -874,6 +1153,14 @@ $.ajax({
    var roadName2='';
    //list 선언문
    var List = [];
+   var List1 = [];
+   var List2 = [];
+   var List3 = [];
+   var List4 = [];
+   var List10 = [];
+   var List12 = [];
+
+   
    
    //로와 거리로 끝나는 정규식 생성 - 보유 데이터의 name속성은 문자열길이가 3부터 7까지 존재.모두 -로 로 끝난다.
    var ro3 = /^[가-힣][가-힣][로]$/;
@@ -927,6 +1214,11 @@ $.ajax({
   
 
    var roName;
+   
+   
+   
+   
+   
    //i의 갯수를 1000으로하고 값이 null이 나오면 종료되게 한다. 
    for (let a=1 ; a <1000 ;a++ ){
          //document.write(roadName);
@@ -942,40 +1234,183 @@ $.ajax({
       roName = searchRo(roadName);
       //console.log(roName);
        //값 넣기
+       
+       if(dd==0){
        if(roName!=""){
       	List.push(roName);
        }
        
+	   }
+       else if(dd==1){
+	   if(roName!=""){
+	  	List1.push(roName);
+	   }
+	}
+       else if(dd==2){
+		   if(roName!=""){
+		  	List2.push(roName);
+		   }
+		}
+       else if(dd==3){
+		   if(roName!=""){
+		  	List3.push(roName);
+		   }
+		}
+       else if(dd==4){
+		   if(roName!=""){
+		  	List4.push(roName);
+		   }
+		}
+       else if(dd==10){
+		   if(roName!=""){
+		  	List10.push(roName);
+		   }
+		}
+       else if(dd==12){
+		   if(roName!=""){
+		  	List12.push(roName);
+		   }
+		}
    }
    
  	//중복값 제거
-   var uniqList = uniqArr(List);
+   
+ 
+
  	//alert(uniqList);
- 	var namestring="";
+
+ 	
+ 	if(dd==0){
+ 	 	var namestring="";
+ 	 	 var uniqList = uniqArr(List);
  	for(var i=0;i<uniqList.length;i++){
  		namestring+=uniqList[i];
  		if(i<uniqList.length-1){
  			namestring+="q";
  		}
  	}
- 	console.log(namestring);
+ 	}
+ 	
+ 	if(dd==1){
+ 	   var uniqList1 = uniqArr(List1);
+ 	 	var namestring1="";
+ 	for(var i=0;i<uniqList1.length;i++){
+ 		namestring1+=uniqList1[i];
+ 		if(i<uniqList1.length-1){
+ 			namestring1+="q";
+ 		}
+ 	}
+ 	}
+ 	
+ 	if(dd==2){
+ 	    var uniqList2 = uniqArr(List2);
+ 	 	var namestring2="";
+ 	for(var i=0;i<uniqList2.length;i++){
+ 		namestring2+=uniqList2[i];
+ 		if(i<uniqList2.length-1){
+ 			namestring2+="q";
+ 		}
+ 	}
+ 	}
+ 	
+ 	if(dd==3){
+ 	    var uniqList3 = uniqArr(List3);
+ 	 	var namestring3="";
+ 	for(var i=0;i<uniqList3.length;i++){
+ 		namestring3+=uniqList3[i];
+ 		if(i<uniqList3.length-1){
+ 			namestring3+="q";
+ 		}
+ 	}
+ 	}
+ 	
+ 	if(dd==4){
+ 	   var uniqList4 = uniqArr(List4);
+ 	 	var namestring4="";
+ 	for(var i=0;i<uniqList4.length;i++){
+ 		namestring4+=uniqList4[i];
+ 		if(i<uniqList4.length-1){
+ 			namestring4+="q";
+ 		}
+ 	}
+ 	}
+ 	
+
+ 	
+ 	if(dd==10){
+ 	    var uniqList10 = uniqArr(List10);
+ 	 	var namestring10="";
+ 	for(var i=0;i<uniqList10.length;i++){
+ 		namestring10+=uniqList10[i];
+ 		if(i<uniqList10.length-1){
+ 			namestring10+="q";
+ 		}
+ 	}
+ 	}
+ 	
+ 	if(dd==12){
+		  var uniqList12 = uniqArr(List12);
+		 	var namestring12="";
+	for(var i=0;i<uniqList12.length;i++){
+		namestring12+=uniqList12[i];
+		if(i<uniqList12.length-1){
+			namestring12+="q";
+		}
+	}
+	}
+ 	
+ 	 
+ 	switch (dd){
+ 	case 0 :
+ 		totalnamestring=namestring;
+ 	break;
+ 	case 1 :
+ 		totalnamestring=totalnamestring+"w"+namestring1;
+ 	break;
+ 	case 2 :
+ 		totalnamestring=totalnamestring+"w"+namestring2;
+ 	break;
+ 	case 3 : 
+ 		totalnamestring=totalnamestring+"w"+namestring3;
+ 	break;
+ 	case 4 :
+ 		totalnamestring=totalnamestring+"w"+namestring4;
+ 	break;
+ 	case 10 :
+ 		totalnamestring=totalnamestring+"w"+namestring10;
+ 	 	break;
+ 	case 12 :
+ 		totalnamestring=totalnamestring+"w"+namestring12;
+ 		$('input[name=totalnamestring]').attr('value',totalnamestring);
+ 	 	break;
+ 	default :
+ 	 	alert("damn it!");
+ 	}
+ 	 
+ 	 
+ 
+ 	
+ 	
+ 	alert(totalnamestring);
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
  	
  	var start = document.getElementById("one").value;
  	var end = document.getElementById("two").value;
  	
  	//값 넣기
- 	$('input[name=namestring]').attr('value',namestring);
- 	$('input[name=startlng]').attr('value',resultlon_s2.toString());
- 	$('input[name=startlat]').attr('value',resultlat_s2.toString());
- 	$('input[name=endlng]').attr('value',resultlon_e2.toString());
- 	$('input[name=endlat]').attr('value',resultlat_e2.toString());
- 	$('input[name=start]').attr('value',start);
- 	$('input[name=end]').attr('value',end);
- 	$('input[name=searchoption]').attr('value',dd);
- 	$('input[name=tdistance]').attr('value',tdistance );
- 	$('input[name=ttime]').attr('value',ttime );
- 	$('input[name=tfare]').attr('value',tfare );
- 	$('input[name=taxifare]').attr('value',taxifare );
+ 	
+ 	
+
+ 	
+ 	
+
  	//값 찾기 
    for(var a in uniqList) {
        console.log(uniqList[a]+" ");
@@ -984,11 +1419,12 @@ $.ajax({
    
    
    
-   
    $("#result").text("총 거리 : "+tdistance+"km 총 시간 : "+ttime+"분 통행 요금: "+tfare+"원 택시요금 : "+taxifare+"원, "+search );
-      
-   prtcl=new Tmap.Format.KML({extractStyles:true, extractAttributes:true}).read(prtcl);//데이터(prtcl)를 읽고, 벡터 도형(feature) 목록을 리턴합니다.
+     
    
+   
+   
+   prtcl=new Tmap.Format.KML({extractStyles:true, extractAttributes:true}).read(prtcl);//데이터(prtcl)를 읽고, 벡터 도형(feature) 목록을 리턴합니다.
    routeLayer.removeAllFeatures();//레이어의 모든 도형을 지웁니다.
    
    //표준 데이터 포맷인 KML을 Read/Write 하는 클래스 입니다.
@@ -1023,17 +1459,30 @@ error:function(request,status,error){
 });
 } 
 
+
+
+
+
+
+
 </script>
+
+<!--고정시키는 부분  -->
 <c:if test="${not empty requestScope.SearchOption }">
 <script>
 
 (function(){
-	div_sh(${requestScope.SearchOption});
-	})()
+   div_sh(${requestScope.SearchOption});
+
+   })()
+</script>
+</c:if>		
+<c:if test="${not empty requestScope.Start }">
+<script>
 document.getElementById("searchsection").click();
 </script>
 </c:if>
-		<div class="w3-bar w3-large">
+<div class="w3-bar w3-large">
       <a href="#rooms" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile"><h4>Search Option</h4></a>
 		</div>
 		<div class="w3-row-padding w3-col w3-margin-top">
@@ -1085,8 +1534,8 @@ document.getElementById("searchsection").click();
 
 <br>
 
-<c:if test="${requestScope.RiskGrade!=0.0 }">
- 
+<c:if test="${empty requestScope.AccidentNum0}">
+ <c:if test="${requestScope.RiskGrade!=0.0 }">
 			<!-- Chart code -->
 <script>
 var chart = AmCharts.makeChart( "chartdiv", {
@@ -1184,141 +1633,255 @@ function randomValue() {
        <button class="tablink" onclick="openPage('RouteInfo', this, 'red')">해당 경로 데이터</button>
 <button class="tablink" onclick="openPage('RiskPercent', this, 'green')" id="defaultOpen">평균 위험도</button>
 <button class="tablink" onclick="openPage('AccidentInfo', this, 'blue')">사고 평균 데이터</button>
-<button class="tablink" onclick="openPage('About', this, 'orange')">About</button>
+
          
       </div>
       </div>
       
-			<div class="w3-margin-left w3-center">
-			<div id="RouteInfo" class="tabcontent" style="background-color:#C4E0F3">
-					<div class="w3-bar w3-white w3-large">
-					<h4>${requestScope.Start }...${requestScope.End }</h4>
-					</div>
-					<div class="w3-row-padding" >
-						<div class="w3-quarter" style="position: relative; bottom: 16px">
-							<h4>선택 경로 : ${requestScope.SearchOption }</h4>
-							&nbsp;&nbsp;&nbsp;
-							<h5><%@ page import="java.util.*, java.text.*"%>
-								<%
-									java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("HH:mm");
-										String time = formatter.format(new java.util.Date());
-										out.println("현재 시간 : " + time);
-								%>
-							</h5>
-							<br>
-							<h1>
-								<font color="green">${requestScope.TTime } 분</font>
-							</h1>
-						</div>
-						<div class="w3-quarter">
-					<c:set var="RiskRatio_icon" value="${requestScope.RiskRatio }"></c:set>
-						<c:choose>
-							<c:when test= "${RiskRatio_icon <= 3.0}">
-								<img class="w3-image" src="img/kiss.png" alt="The main"
-									style="width:70%; height:70%;">
-									<h1><font color="green">매우 안전-!</font></h1>
-							</c:when>
-							<c:when test= "${RiskRatio_icon <= 6.0}">
-								<img class="w3-image" src="img/happiness2.png" alt="The main"
-									style="width:70%; height:70%;">
-									<h1><font color="green">안전-!</font></h1>
-							</c:when>
-							<c:when test= "${RiskRatio_icon <= 9.0}">
-								<img class="w3-image" src="img/happiness.png" alt="The main"
-									style="width:70%; height:70%;">
-									<h1><font color="green">보통</font></h1>
-							</c:when>
-							<c:when test= "${RiskRatio_icon <= 12.0}">
-								<img class="w3-image" src="img/sad.png" alt="The main"
-									style="width:70%; height:70%;">
-									<h1><font color="green">위험-!</font></h1>
-							</c:when>
-							<c:when test= "${RiskRatio_icon <= 15.0}">
-								<img class="w3-image" src="img/angry.png" alt="The main"
-									style="width:70%; height:70%;">
-									<h1><font color="green">매우 위험-!</font></h1>
-							</c:when>
-								<c:when test= "${RiskRatio_icon <= 35.0}">
-								<img class="w3-image" src="img/dead.png" alt="The main"
-									style="width:70%; height:70%;">
-									<h1><font color="green">죽음의 길-!</font></h1>
-							</c:when>
+		<div class="w3-margin-left w3-center">
+         <div id="RouteInfo" class="tabcontent" style="background-color:#C4E0F3">
+               <div class="w3-bar w3-white w3-large">
+               <h4>${requestScope.Start }...${requestScope.End }</h4>
+               </div>
+               <div class="w3-row-padding" >
+                  <div class="w3-quarter" style="position: relative; bottom: 16px">
+                     <h4>선택 경로 : ${requestScope.SearchOption }</h4>
+                     &nbsp;&nbsp;&nbsp;
+                     <h5><%@ page import="java.util.*, java.text.*"%>
+                        <%
+                           java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("HH:mm");
+                              String time = formatter.format(new java.util.Date());
+                              out.println("현재 시간 : " + time);
+                        %>
+                     </h5>
+                     <br>
+                     <h1>
+                        <font color="green">${requestScope.TTime } 분</font>
+                     </h1>
+                  </div>
+                  <div class="w3-quarter">
+               <c:set var="RiskRatio_icon" value="${requestScope.RiskRatio }"></c:set>
+                  <c:choose>
+                     <c:when test= "${RiskRatio_icon <= 3.0}">
+                        <img class="w3-image" src="img/kiss.png" alt="The main"
+                           style="width:70%; height:70%;">
+                           <h1><font color="green">매우 안전-!</font></h1>
+                     </c:when>
+                     <c:when test= "${RiskRatio_icon <= 6.0}">
+                        <img class="w3-image" src="img/happiness2.png" alt="The main"
+                           style="width:70%; height:70%;">
+                           <h1><font color="green">안전-!</font></h1>
+                     </c:when>
+                     <c:when test= "${RiskRatio_icon <= 9.0}">
+                        <img class="w3-image" src="img/happiness.png" alt="The main"
+                           style="width:70%; height:70%;">
+                           <h1><font color="green">보통</font></h1>
+                     </c:when>
+                     <c:when test= "${RiskRatio_icon <= 12.0}">
+                        <img class="w3-image" src="img/sad.png" alt="The main"
+                           style="width:70%; height:70%;">
+                           <h1><font color="green">위험-!</font></h1>
+                     </c:when>
+                     <c:when test= "${RiskRatio_icon <= 15.0}">
+                        <img class="w3-image" src="img/angry.png" alt="The main"
+                           style="width:70%; height:70%;">
+                           <h1><font color="green">매우 위험-!</font></h1>
+                     </c:when>
+                        <c:when test= "${RiskRatio_icon <= 35.0}">
+                        <img class="w3-image" src="img/dead.png" alt="The main"
+                           style="width:70%; height:70%;">
+                           <h1><font color="green">죽음의 길-!</font></h1>
+                     </c:when>
 
-						</c:choose>
-					</div>
-					<div class="w3-half " style="position:relative; bottom:16px">
-				
-					<p id="msg">${requestScope.msg }</p>
-					<p id="SearchOption">
-					
-					<h4>경로 유형</h4>${requestScope.SearchOption }</p>
-					<p id="RiskRatio">
-					
-					<h4>도로별 평균 위험도</h4>${requestScope.RiskRatio }</p>
-					<p id="RiskGrade">
-					
-					<h4>도로별 평균 위험 등급</h4>${requestScope.RiskGrade }</p>
-					<p id="AccidentNum">
-					
-					<h4>도로별 평균 사고건수</h4>${requestScope.AccidentNum }</p>
-					<p id="DeadNum">
-					
-					<h4>도로별 평균 사망자 수</h4>${requestScope.DeadNum }</p>
-					<p id="CriticalNum">
-					
-					<h4>도로별 평균 중상자 수</h4>${requestScope.CriticalNum }</p>
-					<p id="StableNum">
-					
-					<h4>도로별 평균 경상자 수</h4>${requestScope.StableNum }</p>
-					<p id="ClaimantNum">
-					
-					<h4>도로별 평균 부상신고자 수</h4>${requestScope.ClaimantNum }</p>
-					
-					<p id="StartLat">
-					
-					<h4>출발지 위도</h4>${requestScope.StartLat }</p>
-					<p id="StartLng">
-					
-					<h4>출발지 경도</h4>${requestScope.StartLng }</p>
-					<p id="EndLat">
-					
-					<h4>목적지 위도</h4>${requestScope.EndLat }</p>
-					<p id="EndLng">
-					
-					<h4>목적지 경도</h4>${requestScope.EndLng }</p>
-					<p id="TDistance">
-					
-					<h4>총 거리</h4>${requestScope.TDistance  }</p>
-					<p id="TTime">
-					
-					<h4>총 시간</h4>${requestScope.TTime  }</p>
-					<p id="TFare">
-					
-					<h4>통행 비용</h4>${requestScope.TFare }</p>
-					<p id="TaxiFare">
-					
-					<h4>예상 택시 요금</h4>${requestScope.TaxiFare  }</p>
-					</div>
-					</div>
-				</div>
+                  </c:choose>
+               </div>
+               <div class="w3-half " style="position:relative; bottom:16px">
+            
+               <p id="msg">${requestScope.msg }</p>
+               <p id="SearchOption">
+               
+               <h4>경로 유형</h4>${requestScope.SearchOption }</p>
+               <p id="RiskRatio">
+               
+               <h4>도로별 평균 위험도</h4>${requestScope.RiskRatio }</p>
+               <p id="RiskGrade">
+               
+               <h4>도로별 평균 위험 등급</h4>${requestScope.RiskGrade }</p>
+               <p id="AccidentNum">
+               
+               <h4>도로별 평균 사고건수</h4>${requestScope.AccidentNum }</p>
+               <p id="DeadNum">
+               
+               <h4>도로별 평균 사망자 수</h4>${requestScope.DeadNum }</p>
+               <p id="CriticalNum">
+               
+               <h4>도로별 평균 중상자 수</h4>${requestScope.CriticalNum }</p>
+               <p id="StableNum">
+               
+               <h4>도로별 평균 경상자 수</h4>${requestScope.StableNum }</p>
+               <p id="ClaimantNum">
+               
+               <h4>도로별 평균 부상신고자 수</h4>${requestScope.ClaimantNum }</p>
+               
+               <p id="StartLat">
+               
+               <h4>출발지 위도</h4>${requestScope.StartLat }</p>
+               <p id="StartLng">
+               
+               <h4>출발지 경도</h4>${requestScope.StartLng }</p>
+               <p id="EndLat">
+               
+               <h4>목적지 위도</h4>${requestScope.EndLat }</p>
+               <p id="EndLng">
+               
+               <h4>목적지 경도</h4>${requestScope.EndLng }</p>
+               <p id="TDistance">
+               
+               <h4>총 거리</h4>${requestScope.TDistance  }</p>
+               <p id="TTime">
+               
+               <h4>총 시간</h4>${requestScope.TTime  }</p>
+               <p id="TFare">
+               
+               <h4>통행 비용</h4>${requestScope.TFare }</p>
+               <p id="TaxiFare">
+               
+               <h4>예상 택시 요금</h4>${requestScope.TaxiFare  }</p>
+               </div>
+               </div>
+            </div>
 
-				<div id="RiskPercent" class="tabcontent">
-				<div class="w3-row-padding w3-padding-16">
-					<div id="gaugediv" class="w3-third w3-margin-top"style="width: 100%"></div>
-				</div>
-				</div>
+            <div id="RiskPercent" class="tabcontent">
+            <div class="w3-row-padding w3-padding-16">
+               <div id="gaugediv" class="w3-third w3-margin-top"style="width: 100%"></div>
+            </div>
+            </div>
 
-				<div id="AccidentInfo" class="tabcontent">
-					<div class="w3-row-padding w3-padding-16">
-						<div id="chartdiv" class="w3-third w3-margin-bottom"style="width: 100%"></div>
-					</div>
-				</div>
+            <div id="AccidentInfo" class="tabcontent">
+               <div class="w3-row-padding w3-padding-16">
+                  <div id="chartdiv" class="w3-third w3-margin-bottom"style="width: 100%"></div>
+               </div>
+            </div>
+			
 
-
-			</div>
+         </div>
+</c:if>
 </c:if>
 
+<c:if test="${not empty requestScope.AccidentNum0 }">
+  <script>
+  Highcharts.chart('container', {
+	  title: {
+	    text: 'Combination chart'
+	  },
+	  xAxis: {
+	    categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
+	  },
+	  labels: {
+	    items: [{
+	      html: 'Total fruit consumption',
+	      style: {
+	        left: '50px',
+	        top: '18px',
+	        color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+	      }
+	    }]
+	  },
+	  series: [{
+	    type: 'column',
+	    name: 'Jane',
+	    data: [3, 2, 1, 3, 4]
+	  }, {
+	    type: 'column',
+	    name: 'John',
+	    data: [2, 3, 5, 7, 6]
+	  }, {
+	    type: 'column',
+	    name: 'Joe',
+	    data: [4, 3, 3, 9, 0]
+	  }, {
+	    type: 'spline',
+	    name: 'Average',
+	    data: [3, 2.67, 3, 6.33, 3.33],
+	    marker: {
+	      lineWidth: 2,
+	      lineColor: Highcharts.getOptions().colors[3],
+	      fillColor: 'white'
+	    }
+	  }]
+	});
+  </script>
+  
+  <script>
 
+
+var chart3 = Highcharts.chart('AllRoutes', {
+  title: {
+    text: '경로 별 사고 평균'
+  },
+  xAxis: {
+    categories: ['경로 1 ', '경로 2', '경로 3', '경로 4', '경로 5','경로 6', '경로 7']
+  },
+  labels: {
+    items: [{
+      html: '',
+      style: {
+        left: '50px',
+        top: '18px',
+        color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+      }
+    }]
+  },
+  series: [{
+    type: 'column',
+    name: '사망자수',
+    data: [${requestScope.DeadNum0 }, ${requestScope.DeadNum1 }, ${requestScope.DeadNum2 }, ${requestScope.DeadNum3 }, ${requestScope.DeadNum4 },${requestScope.DeadNum10 },${requestScope.DeadNum12 }]
+  }, {
+    type: 'column',
+    name: '중상자수',
+    data: [${requestScope.CriticalNum0 }, ${requestScope.CriticalNum1 }, ${requestScope.CriticalNum2 }, ${requestScope.CriticalNum3 }, ${requestScope.CriticalNum4 },${requestScope.CriticalNum10 },${requestScope.CriticalNum12 }]
+  }, {
+    type: 'column',
+    name: '경상자수',
+    data: [${requestScope.StableNum0 }, ${requestScope.StableNum1 }, ${requestScope.StableNum2 }, ${requestScope.StableNum3 }, ${requestScope.StableNum4 },${requestScope.StableNum10 },${requestScope.StableNum12 }]
+  },{
+       type: 'column',
+       name: '부상신고자수',
+       data: [${requestScope.ClaimantNum0 }, ${requestScope.ClaimantNum1 }, ${requestScope.ClaimantNum2 }, ${requestScope.ClaimantNum3 }, ${requestScope.ClaimantNum4 },${requestScope.ClaimantNum10 },${requestScope.ClaimantNum12 }]
+     },
+  
+   
+
+  {
+    type: 'spline',
+    name: '사고건수',
+    data: [${requestScope.AccidentNum0 }, ${requestScope.AccidentNum1 }, ${requestScope.AccidentNum2 }, ${requestScope.AccidentNum3 }, ${requestScope.AccidentNum4 },${requestScope.AccidentNum10 },${requestScope.AccidentNum12 }],
+    marker: {
+      lineWidth: 2,
+      lineColor: Highcharts.getOptions().colors[3],
+      fillColor: 'white'
+    }
+  } ]
+});
+
+
+</script>
+               
+<div class="w3-container" style="padding: 64px 16px" id="about">
+      <div class="tab">
+      
+       <button class="tablink" onclick="openPage('AllRouteInfo', this, 'orange')">경로 별 사고 통계</button>
+       </div>
+      </div>
+      <div class="w3-margin-left w3-center">
+      <div id="AllRouteInfo" class="tabcontent">
+				<div class="w3-row-padding w3-padding-16">
+				 <div id="AllRoutes" style="min-width: 310px; height: 400px; margin: 0 auto"></div>					
+				<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+				</div>
+			</div>
+      </div>
+</c:if>
 
 
 
@@ -1339,29 +1902,6 @@ function randomValue() {
 			<p>Phone : 010-3967-3325, 010-9003-4096, 010-7202-8295 Copyright(c) 2018   Email : glee1228@naver.com   <a href="localhost:8088/Security_Navigation_Web/main.jsp" target="_blank" class="w3-hover-text-green"> www.solidium.com </a>Allright Reserved.</p>
 </footer>
 
-<!-- Add Google Maps -->
-<script>
-function myMap()
-{
-  myCenter=new google.maps.LatLng(41.878114, -87.629798);
-  var mapOptions= {
-    center:myCenter,
-    zoom:12, scrollwheel: false, draggable: false,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
-
-  var marker = new google.maps.Marker({
-    position: myCenter,
-  });
-  marker.setMap(map);
-}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
-<!--
-To use this code on your website, get a free API key from Google.
-Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
--->
 
 
 <div id="id01" class="modal">
