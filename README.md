@@ -30,4 +30,6 @@ Screenshots
 <img width="700" src="https://user-images.githubusercontent.com/26589942/44620151-68ce2280-a8ca-11e8-8e99-5e7035d35b59.png">
 <img width="700" src="https://user-images.githubusercontent.com/26589942/44620152-68ce2280-a8ca-11e8-9ece-155106f6ea61.png">
 <img width="700" src="https://user-images.githubusercontent.com/26589942/44620153-68ce2280-a8ca-11e8-8a3f-643cc34b2fb6.png">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620149-68358c00-a8ca-11e8-9a47-d7af137d77e2.png">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620150-68ce2280-a8ca-11e8-8cc3-46f8aacce82d.png">
 </div>
