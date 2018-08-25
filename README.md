@@ -1,7 +1,9 @@
 # Java_Web_Security_Navigation
 SOLIDIUM SECURE NAVIGATION - web application
 
-출발지~목적지 간의 네비게이션 경로 별로 평균 도로 위험도 및 평균 도로 위험등급, 평균 사상자 및 사고 건수 데이터를 보여줌.
+<h2>출발지~목적지 간의 네비게이션 경로 별로 평균 도로 위험도 및 평균 도로 위험등급, 평균 사상자 및 평균 사고건수 데이터 제공</h2>
+<h2>출발지~목적지 구간의 경로 별 사고건수, 사망자 수, 중상자 수, 경상자 수, 부상 신고자 수 비교 그래프 제공</
+
 
 <h4>DB</h4> : OracleDBMS<br>
 <h4>Model Language</h4>  : Java<br>
