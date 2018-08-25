@@ -1,7 +1,7 @@
 # Java_Web_Security_Navigation
 SOLIDIUM SECURE NAVIGATION - web application 
 
-Screenshots
+pptx
 -----------------------------------
 
 <div>
@@ -23,6 +23,5 @@ Screenshots
 </div>
 
 
-Logbook(개발일지)
+Screenshots
 ------------------------------------------------------
-
