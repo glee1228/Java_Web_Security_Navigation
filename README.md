@@ -3,10 +3,10 @@ SOLIDIUM SECURE NAVIGATION - web application
 
 출발지~목적지 간의 네비게이션 경로 별로 평균 도로 위험도 및 평균 도로 위험등급, 평균 사상자 및 사고 건수 데이터를 보여줌.
 
-DB : OracleDBMS
-Model Language : Java
-View Language : JSP, CSS, JavaScript
-Data : 서울시 도로 링크별 교통사고(2015~2017).xlsx 
+<h4>DB</h4> : OracleDBMS<br>
+<h4>Model Language</h4>  : Java<br>
+<h4>View Language</h4>  : JSP, CSS, JavaScript<br>
+<h4>Data</h4>  : 서울시 도로 링크별 교통사고(2015~2017).xlsx <br>
 
 
 
