@@ -2,18 +2,28 @@
 
 ### 삼성SDS 멀티캠퍼스 R과 파이썬을 활용한 빅데이터 전문 양성 과정 최우수 프로젝트[SOLIDIUM팀]
 
+<br><br>
+App Service
+-----------------------------------
 **출발지~목적지** 간의 네비게이션 경로 별로 **평균 도로 위험도 및 평균 도로 위험등급, 평균 사상자 및 평균 사고건수** 데이터 제공
 
 **출발지~목적지** 구간의 경로 별 **사고건수, 사망자 수, 중상자 수, 경상자 수, 부상 신고자 수** 비교 그래프 제공
 
+<br>
 
-DB : OracleDBMS
+Environments
+-----------------------------------
+**DB** : OracleDBMS
 
-Model Language  : Java
+**Model Language**  : Java
 
-View Language  : JSP, CSS, JavaScript
+**View Language**  : JSP, CSS, JavaScript
 
-Data  : 서울시 도로 링크별 교통사고(2015~2017).xlsx
+<br>
+
+Data
+-----------------------------------
+**Data**  : 서울시 도로 링크별 교통사고(2015~2017).xlsx
 
 
 
