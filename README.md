@@ -1,37 +1,42 @@
 # Java_Web_Security_Navigation
-SOLIDIUM SECURE NAVIGATION - web application
 
-<h4>출발지~목적지 간의 네비게이션 경로 별로 평균 도로 위험도 및 평균 도로 위험등급, 평균 사상자 및 평균 사고건수 데이터 제공</h4>
-<h4>출발지~목적지 구간의 경로 별 사고건수, 사망자 수, 중상자 수, 경상자 수, 부상 신고자 수 비교 그래프 제공</h4>
+### 삼성SDS 멀티캠퍼스 R과 파이썬을 활용한 빅데이터 전문 양성 과정 최우수 프로젝트[SOLIDIUM팀]
 
+**출발지~목적지** 간의 네비게이션 경로 별로 **평균 도로 위험도 및 평균 도로 위험등급, 평균 사상자 및 평균 사고건수** 데이터 제공
 
-<h4>DB</h4> : OracleDBMS<br>
-<h4>Model Language</h4>  : Java<br>
-<h4>View Language</h4>  : JSP, CSS, JavaScript<br>
-<h4>Data</h4>  : 서울시 도로 링크별 교통사고(2015~2017).xlsx <br>
+**출발지~목적지** 구간의 경로 별 **사고건수, 사망자 수, 중상자 수, 경상자 수, 부상 신고자 수** 비교 그래프 제공
 
 
+DB : OracleDBMS
+
+Model Language  : Java
+
+View Language  : JSP, CSS, JavaScript
+
+Data  : 서울시 도로 링크별 교통사고(2015~2017).xlsx
 
 
-pptx
+
+
+PPT
 -----------------------------------
 
 <div>
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620019-cc575080-a8c8-11e8-998d-0bb8737d84c4.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620020-ccefe700-a8c8-11e8-9d2a-6388cba1fac1.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620021-cd887d80-a8c8-11e8-9d50-a47101d96af9.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620022-ce211400-a8c8-11e8-8615-ec71de206c81.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620023-cf524100-a8c8-11e8-8415-cd6b3c13da96.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620024-d0836e00-a8c8-11e8-9305-833660c7c5bc.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620025-d11c0480-a8c8-11e8-8fe0-ac2cdb7148e2.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620026-d1b49b00-a8c8-11e8-8bfb-639025eef158.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620027-d2e5c800-a8c8-11e8-916c-a5ce496fe5ae.PNG">
-<img width="500" src="(https://user-images.githubusercontent.com/26589942/44620028-d416f500-a8c8-11e8-93bc-39bd58e3d1a5.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620029-d5482200-a8c8-11e8-9896-21ee20bae570.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620030-d5e0b880-a8c8-11e8-9183-15e71851ff01.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620031-d8dba900-a8c8-11e8-8f93-c5465321845a.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620032-db3e0300-a8c8-11e8-924b-930365ca7d8a.PNG">
-<img width="500" src="https://user-images.githubusercontent.com/26589942/44620033-dd07c680-a8c8-11e8-9cba-a2b9c71f92c0.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620019-cc575080-a8c8-11e8-998d-0bb8737d84c4.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620020-ccefe700-a8c8-11e8-9d2a-6388cba1fac1.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620021-cd887d80-a8c8-11e8-9d50-a47101d96af9.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620022-ce211400-a8c8-11e8-8615-ec71de206c81.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620023-cf524100-a8c8-11e8-8415-cd6b3c13da96.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620024-d0836e00-a8c8-11e8-9305-833660c7c5bc.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620025-d11c0480-a8c8-11e8-8fe0-ac2cdb7148e2.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620026-d1b49b00-a8c8-11e8-8bfb-639025eef158.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620027-d2e5c800-a8c8-11e8-916c-a5ce496fe5ae.PNG">
+<img width="700" src="(https://user-images.githubusercontent.com/26589942/44620028-d416f500-a8c8-11e8-93bc-39bd58e3d1a5.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620029-d5482200-a8c8-11e8-9896-21ee20bae570.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620030-d5e0b880-a8c8-11e8-9183-15e71851ff01.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620031-d8dba900-a8c8-11e8-8f93-c5465321845a.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620032-db3e0300-a8c8-11e8-924b-930365ca7d8a.PNG">
+<img width="700" src="https://user-images.githubusercontent.com/26589942/44620033-dd07c680-a8c8-11e8-9cba-a2b9c71f92c0.PNG">
 </div>
 
 
